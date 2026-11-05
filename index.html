@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chart Colour Survey</title>
+  <meta name="description" content="A short survey on how readable four chart colour palettes are, especially for people with colour blindness.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#survey">Skip to the survey</a>
+  <header class="wrap">
+    <p class="eyebrow" id="project"></p>
+    <h1 id="title">Which chart colours work for you?</h1>
+    <p class="lede">I'm choosing colours for a dashboard about pet-shop sales, Aberdeen FC results and the weather. I'd like to know which colour sets are easiest to read, <strong>especially if you're colour blind</strong>.</p>
+    <ul class="facts">
+      <li><strong>About 5–8 minutes.</strong> Four palettes, the same few questions each.</li>
+      <li><strong>Anonymous by default.</strong> Your name is optional. Answers go to a Google Sheet that only <span id="owner"></span> can see.</li>
+      <li><strong>No right or wrong answers.</strong> "I can't tell these apart" is the most useful thing you can tell me.</li>
+      <li>Palettes are shown in a random order and only called A–D, so the names don't sway you. You'll see which was which at the end.</li>
+    </ul>
+  </header>
+
+  <main class="wrap">
+    <noscript><p class="alert">This survey needs JavaScript turned on.</p></noscript>
+
+    <form id="survey" novalidate>
+      <!-- honeypot: real people never see or fill this -->
+      <div class="hp" aria-hidden="true">
+        <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <section class="card" aria-labelledby="about-h">
+        <h2 id="about-h">About you <span class="opt">(all optional)</span></h2>
+
+        <label class="field">
+          <span class="q">Name or initials</span>
+          <input type="text" name="respondent" autocomplete="off" maxlength="60" placeholder="Leave blank to stay anonymous">
+        </label>
+
+        <fieldset class="field">
+          <legend class="q">Which best describes your colour vision?</legend>
+          <div class="choices col">
+            <label><input type="radio" name="vision_type" value="Red-green: deuteranomaly / deuteranopia (green-weak)"> Red-green: <strong>deutan</strong> (green-weak or green-blind)</label>
+            <label><input type="radio" name="vision_type" value="Red-green: protanomaly / protanopia (red-weak)"> Red-green: <strong>protan</strong> (red-weak or red-blind)</label>
+            <label><input type="radio" name="vision_type" value="Red-green: not sure which"> Red-green, not sure which kind</label>
+            <label><input type="radio" name="vision_type" value="Blue-yellow (tritan)"> Blue-yellow (<strong>tritan</strong>)</label>
+            <label><input type="radio" name="vision_type" value="Little or no colour (monochromacy)"> Little or no colour vision (monochromacy)</label>
+            <label><input type="radio" name="vision_type" value="Typical colour vision"> Typical colour vision</label>
+            <label><input type="radio" name="vision_type" value="Not sure"> Not sure</label>
+            <label><input type="radio" name="vision_type" value="Prefer not to say"> Prefer not to say</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="q">What are you viewing this on?</legend>
+          <div class="choices">
+            <label><input type="radio" name="device" value="Phone"> Phone</label>
+            <label><input type="radio" name="device" value="Tablet"> Tablet</label>
+            <label><input type="radio" name="device" value="Laptop"> Laptop</label>
+            <label><input type="radio" name="device" value="Desktop monitor"> Desktop monitor</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend class="q">Is a colour filter, night mode or blue-light filter switched on?</legend>
+          <div class="choices">
+            <label><input type="radio" name="screen_filter" value="Yes"> Yes</label>
+            <label><input type="radio" name="screen_filter" value="No"> No</label>
+            <label><input type="radio" name="screen_filter" value="Don't know"> Don't know</label>
+          </div>
+          <p class="hint">Night mode changes colours a lot. If you can, switch it off for this survey.</p>
+        </fieldset>
+      </section>
+
+      <div id="palettes"></div>
+
+      <section class="card" aria-labelledby="final-h">
+        <h2 id="final-h">Overall</h2>
+        <label class="field">
+          <span class="q">Which palette was <strong>easiest</strong> for you? <span class="req">required</span></span>
+          <select name="favourite" required data-palette-select>
+            <option value="">Choose…</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="q">Which was <strong>hardest</strong>?</span>
+          <select name="least_favourite" data-palette-select>
+            <option value="">Choose…</option>
+          </select>
+        </label>
+        <fieldset class="field">
+          <legend class="q">The charts put names next to each line and letters (W / D / L) on the bars. Did that help?</legend>
+          <div class="choices">
+            <label><input type="radio" name="labels_helped" value="A lot"> A lot</label>
+            <label><input type="radio" name="labels_helped" value="A bit"> A bit</label>
+            <label><input type="radio" name="labels_helped" value="Not really"> Not really</label>
+            <label><input type="radio" name="labels_helped" value="Didn't notice"> Didn't notice them</label>
+          </div>
+        </fieldset>
+        <label class="field">
+          <span class="q">Anything else? For example, colours you find hard in everyday apps, or what would make charts easier for you.</span>
+          <textarea name="final_comment" rows="4" maxlength="2000"></textarea>
+        </label>
+      </section>
+
+      <div class="submit-row">
+        <p id="form-error" class="alert" role="alert" hidden></p>
+        <button type="submit" id="submit-btn">Send my answers</button>
+      </div>
+    </form>
+
+    <section id="thanks" class="card" hidden tabindex="-1" aria-labelledby="thanks-h">
+      <h2 id="thanks-h">Thank you!</h2>
+      <p id="thanks-msg">Your answers have been sent.</p>
+      <h3>Which palette was which</h3>
+      <ul id="reveal" class="reveal"></ul>
+      <p><button type="button" id="download-btn" class="secondary">Download a copy of my answers</button></p>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Charts use real (aggregated) shop sales, Meteostat weather data and Aberdeen FC results. No customer data is shown. <span id="footer-project"></span></p>
+  </footer>
+
+  <dialog id="zoom">
+    <form method="dialog"><button class="close" aria-label="Close enlarged image">Close ✕</button></form>
+    <img id="zoom-img" alt="">
+  </dialog>
+
+  <!-- secrets.js is not in git: it is created locally from secrets.example.js,
+       or by the GitHub Actions workflow from the SCRIPT_URL repository secret. -->
+  <script src="secrets.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

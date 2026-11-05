@@ -1,0 +1,116 @@
+/* Neutral, high-contrast UI so the page itself doesn't compete with the palettes
+   being tested. Light only on purpose: the sample charts are designed on white. */
+:root {
+  color-scheme: light;
+  --bg: #f6f6f4;
+  --card: #ffffff;
+  --ink: #111111;
+  --ink-2: #444444;
+  --ink-3: #6b6b6b;
+  --line: #d4d4d0;
+  --focus: #111111;
+  --accent: #111111;
+  --radius: 14px;
+  font-size: 18px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+.skip { position: absolute; left: -999px; top: 8px; background: #fff; padding: 8px 12px; border: 2px solid var(--ink); }
+.skip:focus { left: 8px; z-index: 10; }
+
+header { padding-top: 40px; padding-bottom: 8px; }
+.eyebrow { font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 6px; }
+h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.15; margin: 0 0 14px; }
+.lede { font-size: 1.1rem; max-width: 46em; margin: 0 0 14px; }
+.facts { padding-left: 1.1em; margin: 0 0 24px; color: var(--ink-2); max-width: 50em; }
+.facts li { margin: 4px 0; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 22px 8px;
+  margin: 0 0 22px;
+}
+.card h2 { margin: 0 0 14px; font-size: 1.45rem; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.step { font-size: .85rem; font-weight: 400; color: var(--ink-3); }
+.opt { font-weight: 400; color: var(--ink-3); font-size: .9em; }
+.req { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; border: 1.5px solid var(--ink); border-radius: 999px; padding: 1px 7px; margin-left: 6px; vertical-align: 2px; }
+
+figure { margin: 0 0 18px; }
+.zoom-btn { all: unset; cursor: zoom-in; display: block; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.zoom-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+figure img { display: block; width: 100%; height: auto; }
+figcaption { font-size: .85rem; color: var(--ink-3); margin-top: 6px; }
+
+.field { display: block; border: 0; padding: 0; margin: 0 0 20px; min-width: 0; }
+fieldset.field { border-left: 4px solid transparent; padding-left: 10px; margin-left: -14px; }
+.field.invalid { border-left-color: var(--ink); }
+label.field.invalid select { outline: 3px solid var(--ink); }
+.q { display: block; font-weight: 600; margin-bottom: 8px; padding: 0; }
+.hint { font-size: .85rem; color: var(--ink-3); margin: 6px 0 0; }
+
+input[type=text], textarea, select {
+  width: 100%; font: inherit; color: var(--ink);
+  border: 1.5px solid #8a8a86; border-radius: 10px; padding: 10px 12px; background: #fff;
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choices.col { flex-direction: column; }
+.choices label, .scale label {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; cursor: pointer; background: #fff;
+  min-height: 44px;
+}
+.choices label:has(input:checked), .scale label:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); font-weight: 600; }
+input[type=radio], input[type=checkbox] { width: 20px; height: 20px; accent-color: #111; margin: 0; flex: none; }
+
+.scale { display: flex; flex-wrap: wrap; gap: 8px; }
+.scale label { flex-direction: column; gap: 2px; min-width: 64px; justify-content: center; text-align: center; padding: 8px 10px; }
+.scale label span { font-weight: 600; font-size: 1.05rem; }
+.scale label em { font-style: normal; font-size: .72rem; color: var(--ink-3); }
+.scale label.na { min-width: 96px; }
+
+.swatches { display: flex; gap: 10px; margin: 2px 0 12px; flex-wrap: wrap; }
+.sw { width: 72px; height: 56px; border-radius: 8px; display: grid; place-items: center; font-weight: 700; font-size: 1.15rem; }
+
+.submit-row { margin: 8px 0 40px; }
+button, .secondary {
+  font: inherit; font-weight: 700; cursor: pointer;
+  background: var(--accent); color: #fff; border: 2px solid var(--accent); border-radius: 12px; padding: 14px 26px; min-height: 48px;
+}
+button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+button:disabled { opacity: .6; cursor: progress; }
+button.secondary { background: #fff; color: var(--ink); }
+.alert { border: 2px solid var(--ink); border-radius: 10px; padding: 10px 14px; background: #fff; font-weight: 600; }
+.hp { position: absolute; left: -5000px; width: 1px; height: 1px; overflow: hidden; }
+
+#thanks { padding-bottom: 20px; }
+#thanks:focus { outline: none; }
+.reveal { padding-left: 1.1em; }
+.reveal li { margin: 8px 0; }
+.mini { display: inline-flex; gap: 3px; margin-left: 8px; vertical-align: middle; }
+.mini i { width: 16px; height: 16px; border-radius: 3px; display: inline-block; }
+
+.foot { color: var(--ink-3); font-size: .8rem; padding-bottom: 40px; }
+
+dialog { border: 0; padding: 0; border-radius: 12px; max-width: 96vw; max-height: 94vh; }
+dialog::backdrop { background: rgba(0, 0, 0, .75); }
+dialog img { display: block; max-width: 96vw; max-height: 88vh; width: auto; height: auto; }
+dialog .close { position: sticky; top: 0; float: right; margin: 8px; padding: 8px 14px; min-height: 0; }
+
+@media (max-width: 600px) {
+  :root { font-size: 16px; }
+  .card { padding: 18px 14px 6px; }
+  .scale label { min-width: 52px; flex: 1 1 52px; }
+  .sw { width: 52px; height: 46px; }
+  fieldset.field { margin-left: -10px; padding-left: 6px; }
+}
